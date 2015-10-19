@@ -1,0 +1,12 @@
+{
+  "name": "exo-mailcatcher",
+  "version": "1.0.0",
+  "author": "eXo",
+  "license": "GPL-3.0",
+  "summary": "A module to manage MailCatcher",
+  "source": "git@github.com:exo-puppet/exo-mailcatcher.git",
+  "project_page": "https://github.com/exo-puppet/exo-mailcatcher",
+  "dependencies": [
+    { "name": "puppetlabs/stdlib", "version_requirement": ">= 4.9.0" }
+  ]
+}

@@ -1,0 +1,8 @@
+description "Mailcatcher on port <%= @smtp_port %>"
+
+start on runlevel [2345]
+stop on runlevel [!2345]
+
+respawn
+
+exec /usr/bin/env $(which mailcatcher) --foreground --smtp-ip=<%= @smtp_ip %> --smtp-port=<%= @smtp_port %> --http-ip=<%= @http_ip %> --http-port=<%= @http_port %>
