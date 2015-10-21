@@ -5,6 +5,7 @@ class mailcatcher (
   validate_re($ensure, '(installed|present|absent)')
   # Install dependencies
   ensure_packages([
+    'make',
     'ruby-dev',
     'libsqlite3-dev'], {
     'ensure' => 'present'
@@ -19,7 +20,7 @@ class mailcatcher (
     },
     provider => gem,
     require  => Package[
-      'ruby-dev', 'libsqlite3-dev']
+      'make', 'ruby-dev', 'libsqlite3-dev']
   }
 
 }
