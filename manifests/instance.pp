@@ -16,7 +16,8 @@ define mailcatcher::instance (
     path    => "/etc/init/mailcatcher-${name}.conf",
     owner   => root,
     group   => root,
-    content => template('mailcatcher/mailcatcher.conf.erb')
+    content => template('mailcatcher/mailcatcher.conf.erb'),
+    notify  => Service[ "mailcatcher-${name}" ]
   }
 
   service { "mailcatcher-${name}":
