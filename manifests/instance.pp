@@ -24,7 +24,7 @@ define mailcatcher::instance (
       'absent' => 'stopped',
       default  => $ensure
     },
-    name    => "mailcatcher-${smtp_port}",
+    name    => "mailcatcher-${name}",
     require => File["mailcatcher-${name}"]
   }
 }
