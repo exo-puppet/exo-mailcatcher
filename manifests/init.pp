@@ -8,19 +8,33 @@ class mailcatcher (
     'make',
     'ruby-dev',
     'libsqlite3-dev'], {
-    'ensure' => 'present'
-  }
-  )
+    'ensure'  => 'present',
+    'require' => Class['apt::update']
+  } )
 
+  # mime-types gem (mailcatcher dep) : we enforce this 'old' version to need Ruby < 2
+  ensure_packages ( 'gem-mime-types', {
+    'ensure'   => '2.99.1',
+    'name'     => 'mime-types',
+    'provider' => 'gem',
+    'require'  => Package['make','ruby-dev','libsqlite3-dev']
+  } )
+  # mail gem (mailcatcher dep) : we enforce this 'old' version to need Ruby < 2
+  ensure_packages ( 'gem-mail', {
+    'ensure'   => '2.6.3',
+    'name'     => 'mail',
+    'provider' => 'gem',
+    'require'  => Package['make','ruby-dev','libsqlite3-dev','gem-mime-types']
+  } )
   # Install mailcatcher gem
-  package { 'mailcatcher':
-    ensure   => $ensure ? {
+  ensure_packages ( 'mailcatcher', {
+    'ensure'          => $ensure ? {
       /(installed|present)/ => $version,
       default               => absent
     },
-    provider => gem,
-    require  => Package[
-      'make', 'ruby-dev', 'libsqlite3-dev']
-  }
+    'provider'        => 'gem',
+    'install_options' => '--conservative',
+    'require'         => Package['make','ruby-dev','libsqlite3-dev','gem-mime-types','gem-mail']
+  } )
 
 }

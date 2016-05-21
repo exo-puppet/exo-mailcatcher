@@ -26,6 +26,6 @@ define mailcatcher::instance (
       default  => $ensure
     },
     name    => "mailcatcher-${name}",
-    require => File["mailcatcher-${name}"]
+    require => [File["mailcatcher-${name}"],Package['mailcatcher']]
   }
 }
